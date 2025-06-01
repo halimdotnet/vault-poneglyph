@@ -1,6 +1,6 @@
-# Table of Contents
-- [Ubuntu Terminal Command Guide](#ubuntu-terminal-command-guide)
-- [Ubuntu Command Line - Detailed Command Reference](#ubuntu-command-line---detailed-command-reference)
+## Table of Contents
+- [Overview](#overview)
+- [Command Line](#command-line)
   - [1. Basic Navigation and File Operations](#1-basic-navigation-and-file-operations)
   - [2. File Permissions and Ownership](#2-file-permissions-and-ownership)
   - [3. Text Manipulation](#3-text-manipulation)
@@ -8,7 +8,7 @@
   - [5. Package Management](#5-package-management)
   - [6. System Monitoring](#6-system-monitoring)
 
-# Ubuntu Terminal Command Guide
+# Overview
 **Basic navigation and file operation:** `ls`, `cd`, `pwd`, `mkdir`, `rmdir`, `cp`, `mv`, `rm`, and `touch`
 
 **File permission and ownership:** `chmod`, `chown`, and `chgrp`
@@ -23,7 +23,7 @@
 
 **Study the manual:** `man`, `--help`
 
-# Ubuntu Command Line - Detailed Command Reference
+# Command Line
 
 ## 1. Basic Navigation and File Operations
 
