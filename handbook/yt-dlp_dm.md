@@ -3,8 +3,7 @@
 ## Table of Contents
 - [1. Overview](#1-overview)
   - [1.1 What is yt-dlp?](#11-what-is-yt-dlp)
-  - [1.2 Key Features](#12-key-features)
-  - [1.3 Dependencies and Why We Need Them](#13-dependencies-and-why-we-need-them)
+  - [1.2 Dependencies and Why We Need Them](#12-dependencies-and-why-we-need-them)
 - [2. Installation](#2-installation)
   - [2.1 Method 1: Direct Download (Latest Version)](#21-method-1-direct-download-latest-version)
   - [2.2 Method 2: Using Package Manager](#22-method-2-using-package-manager)
@@ -64,26 +63,8 @@
 
 yt-dlp is a powerful, open-source command-line program for downloading videos and audio from YouTube and over 1000 other websites. It's a fork of youtube-dl with enhanced features, better performance, and active development.
 
-### 1.2 Key Features
-
-- **1000+ supported sites**: YouTube, Vimeo, Twitter, Instagram, TikTok, Facebook, Twitch, and many more
-- **Format selection**: Choose video quality, audio format, and container types
-- **Playlist support**: Download entire playlists, channels, and user uploads
-- **Audio extraction**: Extract audio in various formats (MP3, FLAC, AAC, OGG, etc.)
-- **Subtitle support**: Download and embed subtitles in multiple languages
-- **Metadata handling**: Embed video information, thumbnails, and chapters
-- **Resume capability**: Continue interrupted downloads
-- **External downloader support**: Integration with aria2c for faster downloads
-- **Post-processing**: Automatic format conversion and optimization
-- **Live stream support**: Download live streams and scheduled premieres
-
-### 1.3 Dependencies and Why We Need Them
-
-#### 1.3.1 Required Dependencies
-- **Python 3.7+**: yt-dlp is written in Python and requires Python runtime
-- **ca-certificates**: Required for secure HTTPS connections to video sites
-
-#### 1.3.2 Essential Dependencies for Full Functionality
+### 1.2 Dependencies
+Essential Dependencies for Full Functionality
 - **FFmpeg**: Critical for most yt-dlp operations:
   - Converting between video/audio formats (MP4, WebM, MP3, etc.)
   - Merging separate video and audio streams (common with high-quality downloads)
@@ -96,12 +77,6 @@ yt-dlp is a powerful, open-source command-line program for downloading videos an
   - Provides much faster speeds for segmented content (m3u8/HLS streams)
   - Better handling of network interruptions and resume capability
   - Essential for downloading from sites that split videos into multiple fragments
-
-#### 1.3.3 System Requirements
-- **OS**: Ubuntu 18.04+ (or any modern Linux distribution)
-- **Storage**: Sufficient space for downloads
-- **Network**: Internet connection
-- **Memory**: 512MB+ RAM recommended
 
 ## 2. Installation
 
@@ -951,5 +926,3 @@ yt-dlp -o "~/Downloads/yt-dlp/%(uploader)s/%(upload_date>%Y-%m)s/%(title)s.%(ext
 yt-dlp -x -o "~/Music/%(uploader)s/%(title)s.%(ext)s" "MUSIC_URL"
 yt-dlp -o "~/Videos/%(uploader)s/%(title)s.%(ext)s" "VIDEO_URL"
 ```
-
-This documentation provides a complete guide for using yt-dlp as your daily download manager on Ubuntu, covering installation, configuration, usage, and troubleshooting.
