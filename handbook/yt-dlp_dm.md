@@ -1,708 +1,955 @@
+# Complete yt-dlp Documentation for Ubuntu
+
 ## Table of Contents
+- [1. Overview](#1-overview)
+  - [1.1 What is yt-dlp?](#11-what-is-yt-dlp)
+  - [1.2 Key Features](#12-key-features)
+  - [1.3 Dependencies and Why We Need Them](#13-dependencies-and-why-we-need-them)
+- [2. Installation](#2-installation)
+  - [2.1 Method 1: Direct Download (Latest Version)](#21-method-1-direct-download-latest-version)
+  - [2.2 Method 2: Using Package Manager](#22-method-2-using-package-manager)
+  - [2.3 Installing Essential Dependencies](#23-installing-essential-dependencies)
+  - [2.4 Post-Installation Setup](#24-post-installation-setup)
+- [3. Uninstallation](#3-uninstallation)
+  - [3.1 Determine Installation Method](#31-determine-installation-method)
+  - [3.2 Uninstall Methods](#32-uninstall-methods)
+  - [3.3 Clean Up Configuration Files](#33-clean-up-configuration-files)
+- [4. Configuration](#4-configuration)
+  - [4.1 Configuration File Location](#41-configuration-file-location)
+  - [4.2 Creating Configuration File](#42-creating-configuration-file)
+  - [4.3 Sample Configuration File](#43-sample-configuration-file)
+  - [4.4 Environment Variables](#44-environment-variables)
+- [5. Syntax and Commands](#5-syntax-and-commands)
+  - [5.1 Basic Syntax](#51-basic-syntax)
+  - [5.2 Essential Options](#52-essential-options)
+  - [5.3 Format Selection Syntax](#53-format-selection-syntax)
+  - [5.4 Output Template Variables](#54-output-template-variables)
+- [6. Basic Usage](#6-basic-usage)
+  - [6.1 Simple Video Download](#61-simple-video-download)
+  - [6.2 Checking Available Formats](#62-checking-available-formats)
+  - [6.3 Audio Extraction](#63-audio-extraction)
+  - [6.4 Quality Selection](#64-quality-selection)
+  - [6.5 Basic Playlist Downloads](#65-basic-playlist-downloads)
+  - [6.6 Subtitle Downloads](#66-subtitle-downloads)
+  - [6.7 Using External Downloaders](#67-using-external-downloaders)
+- [7. Advanced Usage](#7-advanced-usage)
+  - [7.1 Batch Downloads](#71-batch-downloads)
+  - [7.2 Channel and User Downloads](#72-channel-and-user-downloads)
+  - [7.3 Advanced Filtering](#73-advanced-filtering)
+  - [7.4 External Downloaders](#74-external-downloaders)
+  - [7.5 Post-Processing](#75-post-processing)
+  - [7.6 Live Streams](#76-live-streams)
+  - [7.7 Advanced Output Templates](#77-advanced-output-templates)
+  - [7.8 Playlist Advanced Features](#78-playlist-advanced-features)
+- [8. Tips and Tricks](#8-tips-and-tricks)
+  - [8.1 Performance Optimization](#81-performance-optimization)
+  - [8.2 Useful Aliases](#82-useful-aliases)
+  - [8.3 Content Organization](#83-content-organization)
+  - [8.4 Download Queue Management](#84-download-queue-management)
+  - [8.5 Monitoring and Logging](#85-monitoring-and-logging)
+- [9. Troubleshooting](#9-troubleshooting)
+  - [9.1 Common Issues and Solutions](#91-common-issues-and-solutions)
+  - [9.2 Debugging Commands](#92-debugging-commands)
+  - [9.3 Update and Maintenance](#93-update-and-maintenance)
+  - [9.4 Cleanup and Maintenance](#94-cleanup-and-maintenance)
+- [10. Additional Recommendations](#10-additional-recommendations)
+  - [10.1 Recommended Daily Workflow](#101-recommended-daily-workflow)
+  - [10.2 Essential Automation Scripts](#102-essential-automation-scripts)
+  - [10.3 Browser Integration](#103-browser-integration)
+  - [10.4 Backup and Organization](#104-backup-and-organization)
 
-- [Download Manager Ubuntu](#download-manager-ubuntu)
-  - [Tools Overview](#tools-overview)
-  - [Installation](#installation)
-- [YT-DLP Commands](#yt-dlp-commands)
-  - [Basic Commands](#basic-commands)
-  - [Format and Quality Options](#format-and-quality-options)
-  - [Audio Extraction](#audio-extraction)
-  - [Output Options](#output-options)
-  - [Playlist Downloads](#playlist-downloads)
-  - [Subtitles](#subtitles)
-  - [Advanced Options](#advanced-options)
-  - [Channel Downloads](#channel-downloads)
-  - [Useful Combinations](#useful-combinations)
-  - [Configuration File](#configuration-file)
-  - [Common Examples](#common-examples)
-  - [Supported Sites](#supported-sites)
-  - [Help and Documentation](#help-and-documentation)
-- [Using aria2c with yt-dlp for m3u8 Downloads](#using-aria2c-with-yt-dlp-for-m3u8-downloads)
-  - [Install aria2c First](#install-aria2c-first)
-  - [Basic aria2c Usage with yt-dlp](#basic-aria2c-usage-with-yt-dlp)
-  - [Optimized aria2c Settings for m3u8](#optimized-aria2c-settings-for-m3u8)
-  - [Complete m3u8 Download Command](#complete-m3u8-download-command)
-  - [aria2c Specific Arguments for m3u8](#aria2c-specific-arguments-for-m3u8)
-  - [Advanced Examples](#advanced-examples)
-  - [Troubleshooting aria2c with m3u8](#troubleshooting-aria2c-with-m3u8)
-  - [Performance Comparison](#performance-comparison)
-  - [Create an Alias for Convenience](#create-an-alias-for-convenience)
-  - [Key Benefits of aria2c for m3u8](#key-benefits-of-aria2c-for-m3u8)
-  - [Quick Reference Commands](#quick-reference-commands)
-- [How to Detect m3u8 Files on Websites](#how-to-detect-m3u8-files-on-websites)
-  - [Method 1: Browser Developer Tools](#method-1-browser-developer-tools)
-  - [Method 2: Browser Extensions](#method-2-browser-extensions)
-  - [Method 3: Command Line Tools](#method-3-command-line-tools)
-  - [Method 4: JavaScript Console Detection](#method-4-javascript-console-detection)
-  - [Method 5: Using Specialized Tools](#method-5-using-specialized-tools)
-  - [Method 6: Mobile Browser Detection](#method-6-mobile-browser-detection)
-  - [Common m3u8 URL Patterns](#common-m3u8-url-patterns)
-- [Additional Resources](#additional-resources)
+## 1. Overview
 
-# Download Manager Ubuntu
-This documentation covers the usage of three powerful download tools on Ubuntu: yt-dlp, aria2c, and ffmpeg. These tools can be combined to create an efficient download management system.
+### 1.1 What is yt-dlp?
 
-## Tools Overview
-### yt-dlp
-yt-dlp is a feature-rich command-line download manager for video and audio content from various platforms including YouTube, Vimeo, and many other websites. It's a fork of youtube-dl with additional features and active maintenance.
+yt-dlp is a powerful, open-source command-line program for downloading videos and audio from YouTube and over 1000 other websites. It's a fork of youtube-dl with enhanced features, better performance, and active development.
 
-### aria2c
-aria2 is a lightweight multi-protocol & multi-source command-line download utility. It supports HTTP/HTTPS, FTP, SFTP, BitTorrent and Metalink, and can handle multiple connections per download for faster speeds.
+### 1.2 Key Features
 
-### ffmpeg
-FFmpeg is a complete solution for recording, converting, and streaming audio and video. It's often used in conjunction with yt-dlp for post-processing downloaded media.
+- **1000+ supported sites**: YouTube, Vimeo, Twitter, Instagram, TikTok, Facebook, Twitch, and many more
+- **Format selection**: Choose video quality, audio format, and container types
+- **Playlist support**: Download entire playlists, channels, and user uploads
+- **Audio extraction**: Extract audio in various formats (MP3, FLAC, AAC, OGG, etc.)
+- **Subtitle support**: Download and embed subtitles in multiple languages
+- **Metadata handling**: Embed video information, thumbnails, and chapters
+- **Resume capability**: Continue interrupted downloads
+- **External downloader support**: Integration with aria2c for faster downloads
+- **Post-processing**: Automatic format conversion and optimization
+- **Live stream support**: Download live streams and scheduled premieres
 
-## Installation
-### Installing yt-dlp
+### 1.3 Dependencies and Why We Need Them
+
+#### 1.3.1 Required Dependencies
+- **Python 3.7+**: yt-dlp is written in Python and requires Python runtime
+- **ca-certificates**: Required for secure HTTPS connections to video sites
+
+#### 1.3.2 Essential Dependencies for Full Functionality
+- **FFmpeg**: Critical for most yt-dlp operations:
+  - Converting between video/audio formats (MP4, WebM, MP3, etc.)
+  - Merging separate video and audio streams (common with high-quality downloads)
+  - Embedding subtitles directly into video files
+  - Adding metadata and thumbnails to downloaded files
+  - Fixing timestamp issues in downloaded content
+
+- **aria2c**: Significantly improves download performance:
+  - Downloads video segments in parallel instead of sequentially
+  - Provides much faster speeds for segmented content (m3u8/HLS streams)
+  - Better handling of network interruptions and resume capability
+  - Essential for downloading from sites that split videos into multiple fragments
+
+#### 1.3.3 System Requirements
+- **OS**: Ubuntu 18.04+ (or any modern Linux distribution)
+- **Storage**: Sufficient space for downloads
+- **Network**: Internet connection
+- **Memory**: 512MB+ RAM recommended
+
+## 2. Installation
+
+### 2.1 Method 1: Direct Download (Latest Version)
+
+This method ensures you get the most recent version with latest site support and bug fixes.
+
 ```bash
+# Download latest release
 sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
+
+# Make executable
 sudo chmod a+rx /usr/local/bin/yt-dlp
+
+# Verify installation
+yt-dlp --version
 ```
 
-### Installing aria2c
+### 2.2 Method 2: Using Package Manager
+
+This method uses Ubuntu's official repositories but may have an older version.
+
 ```bash
+# Update package list
 sudo apt update
-sudo apt install aria2
+
+# Install yt-dlp
+sudo apt install yt-dlp
+
+# Verify installation
+yt-dlp --version
 ```
 
-### Installing FFmpeg
+### 2.3 Installing Essential Dependencies
+
 ```bash
+# Install FFmpeg (essential for most operations)
 sudo apt update
 sudo apt install ffmpeg
-```
 
-# YT-DLP Commands
-## Basic Commands
-
-**Download a video:**
-```bash
-yt-dlp "URL"
-```
-
-**Download audio only:**
-```bash
-yt-dlp -x "URL"
-```
-
-## Format and Quality Options
-**List available formats:**
-```bash
-yt-dlp -F "URL"
-```
-
-**Download specific format:**
-```bash
-yt-dlp -f 137+140 "URL"  # Video format 137 + audio format 140
-```
-
-**Download best quality:**
-```bash
-yt-dlp -f "best[height<=1080]" "URL"  # Best quality up to 1080p
-```
-
-**Download worst quality (for slow connections):**
-```bash
-yt-dlp -f "worst" "URL"
-```
-
-
-## Audio Extraction
-
-**Extract audio in specific format:**
-```bash
-yt-dlp -x --audio-format mp3 "URL"
-yt-dlp -x --audio-format flac "URL"
-yt-dlp -x --audio-format m4a "URL"
-```
-
-**Set audio quality:**
-```bash
-yt-dlp -x --audio-format mp3 --audio-quality 320K "URL"
-```
-
-## Output Options
-
-**Custom filename:**
-```bash
-yt-dlp -o "%(title)s.%(ext)s" "URL"
-yt-dlp -o "%(uploader)s - %(title)s.%(ext)s" "URL"
-```
-
-**Download to specific directory:**
-```bash
-yt-dlp -o "/path/to/directory/%(title)s.%(ext)s" "URL"
-```
-
-**Common filename templates:**
-- `%(title)s` - Video title
-- `%(uploader)s` - Channel name
-- `%(upload_date)s` - Upload date (YYYYMMDD)
-- `%(duration)s` - Video duration
-- `%(view_count)s` - View count
-- `%(like_count)s` - Like count
-
-
-## Playlist Downloads
-
-**Download entire playlist:**
-```bash
-yt-dlp "https://www.youtube.com/playlist?list=PLAYLIST_ID"
-```
-
-**Download specific range from playlist:**
-```bash
-yt-dlp --playlist-start 5 --playlist-end 10 "PLAYLIST_URL"
-```
-
-**Download only first N videos:**
-```bash
-yt-dlp --playlist-end 5 "PLAYLIST_URL"
-```
-
-**Reverse playlist order:**
-```bash
-yt-dlp --playlist-reverse "PLAYLIST_URL"
-```
-
-## Subtitles
-
-**Download with subtitles:**
-```bash
-yt-dlp --write-subs "URL"
-```
-
-**Download auto-generated subtitles:**
-```bash
-yt-dlp --write-auto-subs "URL"
-```
-
-**Specific subtitle language:**
-```bash
-yt-dlp --write-subs --sub-langs "en,es,fr" "URL"
-```
-
-**Embed subtitles in video:**
-```bash
-yt-dlp --embed-subs "URL"
-```
-
-## Advanced Options
-
-**Download with metadata:**
-```bash
-yt-dlp --write-info-json --write-thumbnail "URL"
-```
-
-**Set custom user agent:**
-```bash
-yt-dlp --user-agent "Mozilla/5.0..." "URL"
-```
-
-**Use proxy:**
-```bash
-yt-dlp --proxy "http://proxy-server:port" "URL"
-```
-
-**Limit download rate:**
-```bash
-yt-dlp --limit-rate 1M "URL"  # Limit to 1MB/s
-```
-
-**Continue interrupted downloads:**
-```bash
-yt-dlp -c "URL"
-```
-
-
-## Channel Downloads
-
-**Download all videos from a channel:**
-```bash
-yt-dlp "https://www.youtube.com/@channelname"
-```
-
-**Download only recent videos:**
-```bash
-yt-dlp --dateafter 20231201 "CHANNEL_URL"  # After Dec 1, 2023
-```
-
-**Download videos matching criteria:**
-```bash
-yt-dlp --match-title "keyword" "CHANNEL_URL"
-```
-
-## Useful Combinations
-
-**High-quality audio extraction:**
-```bash
-yt-dlp -x --audio-format flac --audio-quality 0 "URL"
-```
-
-**Download video with custom naming:**
-```bash
-yt-dlp -f "best[height<=1080]" -o "%(uploader)s/%(upload_date)s - %(title)s.%(ext)s" "URL"
-```
-
-**Download playlist with audio only:**
-```bash
-yt-dlp -x --audio-format mp3 --audio-quality 320K "PLAYLIST_URL"
-```
-
-## Configuration File
-
-Create `~/.config/yt-dlp/config` file for default options:
-```
-# Default output template
--o ~/Downloads/%(uploader)s/%(title)s.%(ext)s
-
-# Always extract audio
--x
---audio-format mp3
---audio-quality 320K
-
-# Write metadata
---write-info-json
---write-thumbnail
-```
-
-## Common Examples
-
-**Download YouTube video as MP3:**
-```bash
-yt-dlp -x --audio-format mp3 "https://youtu.be/VIDEO_ID"
-```
-
-**Download best quality under 2GB:**
-```bash
-yt-dlp -f "best[filesize<2G]" "URL"
-```
-
-**Download with progress bar:**
-```bash
-yt-dlp --newline "URL"
-```
-
-**Get video info without downloading:**
-```bash
-yt-dlp -j "URL"  # JSON format
-yt-dlp --get-title "URL"  # Just title
-yt-dlp --get-duration "URL"  # Just duration
-```
-
-## Supported Sites
-
-yt-dlp supports 1000+ sites including YouTube, Vimeo, Twitter, Instagram, TikTok, Facebook, Dailymotion, and many more. Use the same commands for any supported site.
-
-**Check if a site is supported:**
-```bash
-yt-dlp --list-extractors | grep -i "sitename"
-```
-
-## Help and Documentation
-
-For more advanced features and options:
-```bash
-yt-dlp --help
-```
-
-# Using aria2c with yt-dlp for m3u8 Downloads
-
-## Install aria2c First
-
-**Install aria2c:**
-```bash
-sudo apt update
+# Install aria2 for faster downloads
 sudo apt install aria2
-```
 
-**Verify installation:**
-```bash
+# Verify installations
+ffmpeg -version
 aria2c --version
 ```
 
-## Basic aria2c Usage with yt-dlp
+### 2.4 Post-Installation Setup
 
-**Simple command:**
 ```bash
-yt-dlp --external-downloader aria2c "https://example.com/video.m3u8"
+# Create downloads directory
+mkdir -p ~/Downloads/yt-dlp
+
+# Test installation
+yt-dlp --help
 ```
 
-## Optimized aria2c Settings for m3u8
+## 3. Uninstallation
 
-### Recommended Configuration
+### 3.1 Determine Installation Method
 
 ```bash
+# Find where yt-dlp is installed
+which yt-dlp
+
+# Check installation method based on location:
+# /usr/local/bin/yt-dlp = Direct download
+# /usr/bin/yt-dlp = apt package
+```
+
+### 3.2 Uninstall Methods
+
+#### 3.2.1 If Installed via Direct Download
+
+```bash
+# Remove binary
+sudo rm /usr/local/bin/yt-dlp
+
+# Remove cache
+rm -rf ~/.cache/yt-dlp
+```
+
+#### 3.2.2 If Installed via APT
+
+```bash
+# Remove package
+sudo apt remove yt-dlp
+sudo apt autoremove
+
+# Remove cache
+rm -rf ~/.cache/yt-dlp
+```
+
+### 3.3 Clean Up Configuration Files
+
+```bash
+# Remove configuration files (optional)
+rm -rf ~/.config/yt-dlp
+
+# Remove downloaded content (be careful!)
+# rm -rf ~/Downloads/yt-dlp
+```
+
+## 4. Configuration
+
+### 4.1 Configuration File Location
+
+yt-dlp looks for configuration files in this order:
+1. `~/.config/yt-dlp/config`
+2. `~/.config/yt-dlp.conf`
+3. `~/.yt-dlp.conf`
+
+### 4.2 Creating Configuration File
+
+```bash
+# Create config directory
+mkdir -p ~/.config/yt-dlp
+
+# Create configuration file
+nano ~/.config/yt-dlp/config
+```
+
+### 4.3 Sample Configuration File
+
+```bash
+# ~/.config/yt-dlp/config
+
+# Output directory and filename template
+-o ~/Downloads/yt-dlp/%(uploader)s/%(title)s.%(ext)s
+
+# Video quality preference (best quality up to 1080p)
+-f "best[height<=1080]"
+
+# Always merge to MP4
+--merge-output-format mp4
+
+# Embed metadata and thumbnails
+--embed-metadata
+--embed-thumbnail
+
+# Download subtitles
+--write-subs
+--write-auto-subs
+--sub-langs "en,id"
+--embed-subs
+
+# Use external downloader for better performance
+--external-downloader aria2c
+--external-downloader-args "-x 8 -s 8 -j 4"
+
+# Retry settings for reliability
+--retries 5
+--fragment-retries 10
+
+# Safe filenames (remove special characters)
+--restrict-filenames
+
+# Add delay between downloads (be nice to servers)
+--sleep-requests 1
+
+# Continue incomplete downloads
+--continue
+
+# Ignore errors and continue with next video
+--ignore-errors
+```
+
+### 4.4 Environment Variables
+
+```bash
+# Add to ~/.bashrc for permanent settings
+export YT_DLP_CONFIG_HOME="$HOME/.config/yt-dlp"
+export YT_DLP_CACHE_DIR="$HOME/.cache/yt-dlp"
+
+# Reload bashrc
+source ~/.bashrc
+```
+
+## 5. Syntax and Commands
+
+### 5.1 Basic Syntax
+
+```bash
+yt-dlp [OPTIONS] URL [URL...]
+```
+
+### 5.2 Essential Options
+
+| Option | Description | Example |
+|--------|-------------|---------|
+| `-o TEMPLATE` | Output filename template | `-o "%(title)s.%(ext)s"` |
+| `-f FORMAT` | Video format selection | `-f "best[height<=720]"` |
+| `-F` | List available formats | `-F` |
+| `-x` | Extract audio only | `-x` |
+| `--audio-format FORMAT` | Audio format | `--audio-format mp3` |
+| `--audio-quality QUALITY` | Audio quality | `--audio-quality 320K` |
+| `--merge-output-format FORMAT` | Container format | `--merge-output-format mp4` |
+| `--write-subs` | Download subtitle files | `--write-subs` |
+| `--embed-subs` | Embed subtitles in video | `--embed-subs` |
+| `--embed-metadata` | Embed metadata | `--embed-metadata` |
+| `--embed-thumbnail` | Embed thumbnail | `--embed-thumbnail` |
+
+### 5.3 Format Selection Syntax
+
+```bash
+# Quality-based selection
+-f "best"                    # Best available quality
+-f "worst"                   # Worst available quality
+-f "best[height<=1080]"      # Best quality up to 1080p
+-f "best[height>=720]"       # Best quality 720p or higher
+-f "best[filesize<500M]"     # Best quality under 500MB
+
+# Format-based selection
+-f "best[ext=mp4]"           # Best MP4 format
+-f "bestvideo[ext=mp4]+bestaudio[ext=m4a]"  # Best MP4 video + M4A audio
+
+# Codec-based selection
+-f "best[vcodec=h264]"       # Best H.264 video
+-f "best[acodec=aac]"        # Best AAC audio
+
+# Multiple format fallback
+-f "best[height<=1080]/best[height<=720]/best"  # Try 1080p, then 720p, then best
+```
+
+### 5.4 Output Template Variables
+
+```bash
+# Video information
+%(title)s           # Video title
+%(uploader)s        # Channel/uploader name
+%(uploader_id)s     # Channel/uploader ID
+%(upload_date)s     # Upload date (YYYYMMDD)
+%(id)s              # Video ID
+%(description)s     # Video description
+
+# Technical information
+%(ext)s             # File extension
+%(duration)s        # Duration in seconds
+%(duration_string)s # Duration as HH:MM:SS
+%(filesize)s        # File size in bytes
+%(height)s          # Video height (720, 1080, etc.)
+%(width)s           # Video width
+%(fps)s             # Frame rate
+%(vcodec)s          # Video codec
+%(acodec)s          # Audio codec
+
+# Engagement metrics
+%(view_count)s      # View count
+%(like_count)s      # Like count
+%(comment_count)s   # Comment count
+
+# Playlist information
+%(playlist)s        # Playlist title
+%(playlist_id)s     # Playlist ID
+%(playlist_index)s  # Position in playlist
+%(playlist_count)s  # Total videos in playlist
+```
+
+## 6. Basic Usage
+
+### 6.1 Simple Video Download
+
+```bash
+# Download a single video (uses config file settings)
+yt-dlp "https://www.youtube.com/watch?v=VIDEO_ID"
+
+# Download with custom filename
+yt-dlp -o "my_video.%(ext)s" "https://www.youtube.com/watch?v=VIDEO_ID"
+
+# Download to specific directory
+yt-dlp -o "~/Videos/%(title)s.%(ext)s" "URL"
+```
+
+### 6.2 Checking Available Formats
+
+```bash
+# List all available formats
+yt-dlp -F "URL"
+
+# Get video information without downloading
+yt-dlp --dump-json "URL"
+
+# Simulate download (show what would be downloaded)
+yt-dlp --simulate "URL"
+```
+
+### 6.3 Audio Extraction
+
+```bash
+# Extract audio in best quality
+yt-dlp -x "URL"
+
+# Extract as MP3 with specific quality
+yt-dlp -x --audio-format mp3 --audio-quality 320K "URL"
+
+# Extract as FLAC (lossless)
+yt-dlp -x --audio-format flac "URL"
+
+# Extract audio with metadata
+yt-dlp -x --audio-format mp3 --embed-metadata --embed-thumbnail "URL"
+```
+
+### 6.4 Quality Selection
+
+```bash
+# Download best quality up to 1080p
+yt-dlp -f "best[height<=1080]" "URL"
+
+# Download 720p specifically
+yt-dlp -f "best[height=720]" "URL"
+
+# Download best MP4 format
+yt-dlp -f "best[ext=mp4]" "URL"
+
+# Download for slow connections
+yt-dlp -f "worst" "URL"
+```
+
+### 6.5 Basic Playlist Downloads
+
+```bash
+# Download entire playlist
+yt-dlp "https://www.youtube.com/playlist?list=PLAYLIST_ID"
+
+# Download first 5 videos only
+yt-dlp --playlist-end 5 "PLAYLIST_URL"
+
+# Download videos 5-10 from playlist
+yt-dlp --playlist-start 5 --playlist-end 10 "PLAYLIST_URL"
+```
+
+### 6.6 Subtitle Downloads
+
+```bash
+# Download video with English subtitles
+yt-dlp --write-subs --sub-langs "en" "URL"
+
+# Download with auto-generated subtitles
+yt-dlp --write-auto-subs --sub-langs "en" "URL"
+
+# Embed subtitles in video file
+yt-dlp --embed-subs --sub-langs "en" "URL"
+
+# Download only subtitles (no video)
+yt-dlp --write-subs --sub-langs "en" --skip-download "URL"
+```
+
+### 6.7 Using External Downloaders
+
+```bash
+# Use aria2c for faster downloads
+yt-dlp --external-downloader aria2c "URL"
+
+# aria2c with custom settings for optimal performance
+yt-dlp --external-downloader aria2c \
+       --external-downloader-args "-x 8 -s 8 -j 4" "URL"
+```
+
+## 7. Advanced Usage
+
+### 7.1 Batch Downloads
+
+```bash
+# Download from file containing URLs
+yt-dlp -a urls.txt
+
+# Example urls.txt content:
+# https://www.youtube.com/watch?v=VIDEO1
+# https://www.youtube.com/watch?v=VIDEO2
+# https://www.youtube.com/playlist?list=PLAYLIST_ID
+
+# Download with different settings per URL
+yt-dlp -a urls.txt -o "%(uploader)s/%(title)s.%(ext)s"
+```
+
+### 7.2 Channel and User Downloads
+
+```bash
+# Download all videos from a channel
+yt-dlp "https://www.youtube.com/@channelname"
+
+# Download only recent videos (after specific date)
+yt-dlp --dateafter 20240101 "https://www.youtube.com/@channelname"
+
+# Download videos before specific date
+yt-dlp --datebefore 20241231 "https://www.youtube.com/@channelname"
+
+# Download videos within date range
+yt-dlp --dateafter 20240101 --datebefore 20240630 "CHANNEL_URL"
+```
+
+### 7.3 Advanced Filtering
+
+```bash
+# Filter by title keywords
+yt-dlp --match-title "tutorial" "CHANNEL_URL"
+
+# Exclude videos by title
+yt-dlp --reject-title "livestream|live" "CHANNEL_URL"
+
+# Filter by duration (seconds)
+yt-dlp --match-filter "duration > 300" "CHANNEL_URL"  # Longer than 5 minutes
+yt-dlp --match-filter "duration < 3600" "CHANNEL_URL"  # Shorter than 1 hour
+
+# Filter by view count
+yt-dlp --match-filter "view_count > 10000" "CHANNEL_URL"
+
+# Complex filtering
+yt-dlp --match-filter "duration > 300 & view_count > 1000" "CHANNEL_URL"
+```
+
+### 7.4 External Downloaders
+
+```bash
+# Use aria2c for faster downloads with optimal settings
+yt-dlp --external-downloader aria2c \
+       --external-downloader-args "-x 16 -s 16 -j 8" "URL"
+
+# Conservative settings for unstable connections
+yt-dlp --external-downloader aria2c \
+       --external-downloader-args "-x 4 -s 4 -j 2 --retry-wait=3" "URL"
+
+# Use FFmpeg for m3u8/HLS streams
+yt-dlp --external-downloader ffmpeg "URL"
+```
+
+### 7.5 Post-Processing
+
+```bash
+# Convert to specific format after download
+yt-dlp --recode-video mp4 "URL"
+
+# Re-encode with specific quality
+yt-dlp --postprocessor-args "ffmpeg:-crf 23 -preset medium" "URL"
+
+# Add custom FFmpeg arguments
+yt-dlp --postprocessor-args "ffmpeg:-c:v libx264 -c:a aac -b:a 192k" "URL"
+
+# Extract audio and keep video
+yt-dlp --keep-video -x --audio-format mp3 "URL"
+```
+
+### 7.6 Live Streams
+
+```bash
+# Download live stream
+yt-dlp "LIVE_STREAM_URL"
+
+# Download live stream from the beginning
+yt-dlp --live-from-start "LIVE_STREAM_URL"
+
+# Wait for live stream to start
+yt-dlp --wait-for-video 300 "SCHEDULED_STREAM_URL"  # Wait up to 5 minutes
+```
+
+### 7.7 Advanced Output Templates
+
+```bash
+# Organize by year and month
+yt-dlp -o "%(uploader)s/%(upload_date>%Y)s/%(upload_date>%m)s/%(title)s.%(ext)s" "URL"
+
+# Include video quality in filename
+yt-dlp -o "%(title)s [%(height)sp].%(ext)s" "URL"
+
+# Sanitize title and limit length
+yt-dlp -o "%(title).100s.%(ext)s" --restrict-filenames "URL"
+
+# Complex organization with metadata
+yt-dlp -o "%(uploader)s/%(upload_date)s - %(title)s [%(id)s].%(ext)s" "URL"
+```
+
+### 7.8 Playlist Advanced Features
+
+```bash
+# Download playlist in reverse order
+yt-dlp --playlist-reverse "PLAYLIST_URL"
+
+# Extract specific videos by index
+yt-dlp --playlist-items "1,3,5-8,10" "PLAYLIST_URL"
+
+# Skip videos already downloaded
+yt-dlp --download-archive downloaded.txt "PLAYLIST_URL"
+```
+
+## 8. Tips and Tricks
+
+### 8.1 Performance Optimization
+
+```bash
+# Recommended fast download command
+yt-dlp --external-downloader aria2c \
+       --external-downloader-args "-x 8 -s 8 -j 4" \
+       --merge-output-format mp4 \
+       --embed-metadata \
+       -f "best[height<=1080]" "URL"
+
+# For slow connections
+yt-dlp --limit-rate 500K \
+       --socket-timeout 30 \
+       --retries 10 \
+       -f "best[height<=720]" "URL"
+```
+
+### 8.2 Useful Aliases
+
+Add to `~/.bashrc`:
+
+```bash
+# Basic aliases
+alias ytdl='yt-dlp'
+alias ytdl-audio='yt-dlp -x --audio-format mp3 --audio-quality 320K'
+alias ytdl-playlist='yt-dlp --external-downloader aria2c'
+alias ytdl-fast='yt-dlp --external-downloader aria2c --external-downloader-args "-x 16 -s 16"'
+
+# Quality-specific aliases
+alias ytdl-720p='yt-dlp -f "best[height<=720]"'
+alias ytdl-1080p='yt-dlp -f "best[height<=1080]"'
+alias ytdl-4k='yt-dlp -f "best[height<=2160]"'
+
+# Special purpose aliases
+alias ytdl-subs='yt-dlp --write-subs --embed-subs --sub-langs "en,id"'
+alias ytdl-info='yt-dlp --dump-json'
+alias ytdl-formats='yt-dlp -F'
+```
+
+### 8.3 Content Organization
+
+```bash
+# Auto-organize by content type
+yt-dlp -o "~/Downloads/Videos/%(uploader)s/%(title)s.%(ext)s" "VIDEO_URL"
+yt-dlp -x -o "~/Downloads/Music/%(uploader)s/%(title)s.%(ext)s" "MUSIC_URL"
+
+# Organize by date
+yt-dlp -o "~/Downloads/%(upload_date>%Y-%m)s/%(uploader)s/%(title)s.%(ext)s" "URL"
+```
+
+### 8.4 Download Queue Management
+
+```bash
+# Create download queue
+echo "URL1" >> ~/queue.txt
+echo "URL2" >> ~/queue.txt
+
+# Process queue
+yt-dlp -a ~/queue.txt --download-archive ~/downloaded.txt
+
+# Clear processed queue
+> ~/queue.txt
+```
+
+### 8.5 Monitoring and Logging
+
+```bash
+# Log all downloads
+yt-dlp "URL" 2>&1 | tee ~/yt-dlp.log
+
+# Monitor download progress
+yt-dlp --newline "URL"
+
+# Get download statistics
+yt-dlp --print-traffic "URL"
+```
+
+## 9. Troubleshooting
+
+### 9.1 Common Issues and Solutions
+
+#### 9.1.1 "Video unavailable" or "Private video"
+
+```bash
+# Check if video is actually available
+yt-dlp --simulate "URL"
+
+# Try with different user agent
+yt-dlp --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" "URL"
+
+# Use cookies from browser for private/member content
+yt-dlp --cookies-from-browser firefox "URL"
+```
+
+#### 9.1.2 "No video formats found"
+
+```bash
+# List available formats to debug
+yt-dlp -F "URL"
+
+# Try different format selector
+yt-dlp -f "best" "URL"
+
+# Try audio-only if video fails
+yt-dlp -f "bestaudio" "URL"
+
+# Check if site is supported
+yt-dlp --list-extractors | grep -i "sitename"
+```
+
+#### 9.1.3 "HTTP Error 403: Forbidden"
+
+```bash
+# Add referer header
+yt-dlp --add-header "Referer:https://www.youtube.com" "URL"
+
+# Use different user agent
+yt-dlp --user-agent "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36" "URL"
+
+# Add delay between requests
+yt-dlp --sleep-requests 3 "URL"
+```
+
+#### 9.1.4 Download speed too slow
+
+```bash
+# Use aria2c for parallel downloads
+yt-dlp --external-downloader aria2c \
+       --external-downloader-args "-x 16 -s 16 -j 8" "URL"
+
+# Try different format (sometimes faster)
+yt-dlp -f "worst" "URL"  # For testing
+
+# Limit concurrent downloads if overwhelming server
+yt-dlp --external-downloader aria2c \
+       --external-downloader-args "-j 2" "URL"
+```
+
+#### 9.1.5 "FFmpeg not found" errors
+
+```bash
+# Install FFmpeg
+sudo apt update
+sudo apt install ffmpeg
+
+# Specify FFmpeg location manually
+yt-dlp --ffmpeg-location /usr/bin/ffmpeg "URL"
+
+# Check if FFmpeg is in PATH
+which ffmpeg
+```
+
+#### 9.1.6 Audio/video sync problems
+
+```bash
+# Force re-encoding with sync fix
+yt-dlp --postprocessor-args "ffmpeg:-c copy -avoid_negative_ts make_zero" "URL"
+
+# Try different format combination
+yt-dlp -f "best[ext=mp4]" "URL"
+```
+
+#### 9.1.7 Aria2c temp files not cleaned up
+
+```bash
+# Remove aria2c temp files manually
+find . -name "*.aria2__temp" -delete
+find . -name "*.part-Frag*" -delete
+
+# Use aria2c with auto-cleanup
+yt-dlp --external-downloader aria2c \
+       --external-downloader-args "-x 8 -s 8 --remove-control-file=true" "URL"
+```
+
+### 9.2 Debugging Commands
+
+```bash
+# Verbose output for debugging
+yt-dlp -v "URL"
+
+# Very verbose (includes HTTP traffic)
+yt-dlp -vv "URL"
+
+# Simulate download without downloading
+yt-dlp --simulate --verbose "URL"
+
+# Get detailed video information
+yt-dlp --dump-json "URL"
+
+# Test specific extractor
+yt-dlp --test "URL"
+```
+
+### 9.3 Update and Maintenance
+
+```bash
+# Update yt-dlp to latest version (direct download method)
+yt-dlp -U
+
+# Update using package manager
+sudo apt update && sudo apt upgrade yt-dlp
+
+# Check version and supported sites
+yt-dlp --version
+yt-dlp --list-extractors
+```
+
+### 9.4 Cleanup and Maintenance
+
+```bash
+# Clear cache
+yt-dlp --rm-cache-dir
+
+# Remove temporary files
+find ~/Downloads -name "*.part" -delete
+find ~/Downloads -name "*.ytdl" -delete
+
+# Check for corrupted downloads
+find ~/Downloads -name "*.mp4" -exec ffprobe {} \; 2>&1 | grep -i error
+```
+
+## 10. Additional Recommendations
+
+### 10.1 Recommended Daily Workflow
+
+#### 10.1.1 Setup Phase
+```bash
+# Install with all dependencies
+sudo apt update
+sudo apt install ffmpeg aria2
+
+# Install yt-dlp (choose one method from section 2)
+sudo curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp
+sudo chmod a+rx /usr/local/bin/yt-dlp
+
+# Create organized directory structure
+mkdir -p ~/Downloads/yt-dlp/{Videos,Audio,Playlists,Channels}
+
+# Setup configuration file
+mkdir -p ~/.config/yt-dlp
+cp sample-config ~/.config/yt-dlp/config
+```
+
+#### 10.1.2 Daily Usage
+```bash
+# Check what you're downloading first
+yt-dlp -F "URL"
+
+# Use standard quality for most content
+yt-dlp -f "best[height<=1080]" "URL"
+
+# Archive what you've downloaded
+yt-dlp --download-archive ~/Downloads/downloaded.txt "URL"
+```
+
+#### 10.1.3 Maintenance
+```bash
+# Weekly updates
+yt-dlp -U
+
+# Monthly cleanup
+yt-dlp --rm-cache-dir
+find ~/Downloads -name "*.part" -delete
+```
+
+### 10.2 Essential Automation Scripts
+
+#### 10.2.1 Daily Download Script
+```bash
+#!/bin/bash
+# ~/bin/ytdl-daily.sh
+
+URL="$1"
+QUALITY="${2:-1080}"
+
+if [ -z "$URL" ]; then
+    echo "Usage: $0 <URL> [quality]"
+    echo "Quality options: 720, 1080, 1440, 2160 (default: 1080)"
+    exit 1
+fi
+
+echo "Downloading from: $URL"
+echo "Quality: ${QUALITY}p"
+
 yt-dlp \
   --external-downloader aria2c \
-  --external-downloader-args "-x 16 -s 16 -j 16" \
-  "https://example.com/video.m3u8"
-```
-
-**Parameter explanation:**
-- `-x 16` = Maximum 16 connections per download
-- `-s 16` = Split download into 16 segments
-- `-j 16` = Maximum 16 concurrent downloads
-
-### Conservative Settings (for unstable connections)
-
-```bash
-yt-dlp \
-  --external-downloader aria2c \
-  --external-downloader-args "-x 4 -s 4 -j 4 --retry-wait=3" \
-  "URL"
-```
-
-### Aggressive Settings (for fast, stable connections)
-
-```bash
-yt-dlp \
-  --external-downloader aria2c \
-  --external-downloader-args "-x 32 -s 32 -j 32 --max-overall-download-limit=0" \
-  "URL"
-```
-
-## Complete m3u8 Download Command
-
-**Full optimized command:**
-```bash
-yt-dlp \
-  --external-downloader aria2c \
-  --external-downloader-args "-x 16 -s 16 -j 16 --retry-wait=2 --max-tries=5" \
-  --retries 10 \
-  --fragment-retries 10 \
-  --sleep-requests 1 \
-  "https://example.com/video.m3u8"
-```
-
-## aria2c Specific Arguments for m3u8
-
-### Connection Control
-
-```bash
---external-downloader-args "-x 8 -s 8"           # 8 connections, 8 splits
---external-downloader-args "-j 4"                # 4 concurrent downloads
---external-downloader-args "--max-connection-per-server=8"
-```
-
-### Retry and Error Handling
-
-```bash
---external-downloader-args "--retry-wait=3 --max-tries=10"
---external-downloader-args "--timeout=30 --connect-timeout=10"
-```
-
-### Speed Control
-
-```bash
---external-downloader-args "--max-download-limit=5M"        # Limit to 5MB/s
---external-downloader-args "--max-overall-download-limit=0" # No limit
-```
-
-### Headers and User Agent
-
-```bash
---external-downloader-args "--header='Referer: https://site.com'"
---external-downloader-args "--user-agent='Mozilla/5.0 (Linux)'"
-```
-
-## Advanced Examples
-
-### For High-Quality m3u8
-
-```bash
-yt-dlp \
-  --external-downloader aria2c \
-  --external-downloader-args "-x 16 -s 16 -j 8 --retry-wait=2" \
-  -f "best[height<=1080]" \
+  --external-downloader-args "-x 8 -s 8 -j 4 --remove-control-file=true" \
+  --merge-output-format mp4 \
+  --embed-metadata \
+  --embed-thumbnail \
   --retries 5 \
   --fragment-retries 10 \
-  "URL"
+  -f "best[height<=${QUALITY}]" \
+  -o "~/Downloads/yt-dlp/%(uploader)s/%(title)s.%(ext)s" \
+  --restrict-filenames \
+  "$URL"
+
+echo "Download completed!"
 ```
 
-### For Slow/Unreliable Connections
-
+#### 10.2.2 Audio Extraction Script
 ```bash
+#!/bin/bash
+# ~/bin/extract-audio.sh
+
+URL="$1"
+FORMAT="${2:-mp3}"
+QUALITY="${3:-320K}"
+
+if [ -z "$URL" ]; then
+    echo "Usage: $0 <URL> [format] [quality]"
+    echo "Format options: mp3, flac, aac (default: mp3)"
+    echo "Quality options: 128K, 192K, 320K (default: 320K)"
+    exit 1
+fi
+
 yt-dlp \
-  --external-downloader aria2c \
-  --external-downloader-args "-x 4 -s 4 -j 2 --retry-wait=5 --max-tries=10 --timeout=60" \
-  --sleep-requests 2 \
-  --sleep-interval 1 \
-  "URL"
+  -x \
+  --audio-format "$FORMAT" \
+  --audio-quality "$QUALITY" \
+  --embed-metadata \
+  --embed-thumbnail \
+  -o "~/Downloads/yt-dlp/Audio/%(uploader)s/%(title)s.%(ext)s" \
+  --restrict-filenames \
+  "$URL"
 ```
 
-### With Custom Headers
+### 10.3 Browser Integration
 
+#### 10.3.1 Browser Extensions
+- Install "Video DownloadHelper" or similar extensions
+- Configure to use yt-dlp for downloads
+- Set custom download directory
+
+#### 10.3.2 Command Line Integration
 ```bash
-yt-dlp \
-  --external-downloader aria2c \
-  --external-downloader-args "-x 8 -s 8 --header='Referer: https://original-site.com'" \
-  --add-header "User-Agent:Mozilla/5.0..." \
-  "URL"
+# Stream directly to media player without downloading
+alias ytplay='yt-dlp -f "best[height<=720]" -o - "$1" | mpv -'
+
+# Usage: ytplay "URL"
 ```
 
-## Troubleshooting aria2c with m3u8
+### 10.4 Backup and Organization
 
-### If downloads are too aggressive
-
+#### 10.4.1 Backup Strategy
 ```bash
-# Reduce connections and add delays
-yt-dlp \
-  --external-downloader aria2c \
-  --external-downloader-args "-x 4 -s 4 -j 2 --retry-wait=3" \
-  --sleep-requests 2 \
-  "URL"
+# Create backup of downloads
+rsync -av ~/Downloads/yt-dlp/ ~/Backup/yt-dlp/
+
+# Sync to external drive
+rsync -av --progress ~/Downloads/yt-dlp/ /media/external/yt-dlp/
 ```
 
-### For 403/429 errors
-
+#### 10.4.2 Content Organization
 ```bash
-# Add user agent and reduce concurrent connections
-yt-dlp \
-  --external-downloader aria2c \
-  --external-downloader-args "-x 2 -s 2 -j 1 --user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64)'" \
-  --sleep-requests 3 \
-  "URL"
+# Organize downloads by type and date
+yt-dlp -o "~/Downloads/yt-dlp/%(uploader)s/%(upload_date>%Y-%m)s/%(title)s.%(ext)s" "URL"
+
+# Separate music and videos automatically
+yt-dlp -x -o "~/Music/%(uploader)s/%(title)s.%(ext)s" "MUSIC_URL"
+yt-dlp -o "~/Videos/%(uploader)s/%(title)s.%(ext)s" "VIDEO_URL"
 ```
 
-### Check aria2c configuration
-
-```bash
-# Test aria2c directly
-aria2c -x 8 -s 8 "https://example.com/video.m3u8"
-```
-
-## Performance Comparison
-
-**Without aria2c (default):**
-```bash
-yt-dlp "URL"  # Sequential download
-```
-
-**With aria2c:**
-```bash
-yt-dlp --external-downloader aria2c --external-downloader-args "-x 16 -s 16" "URL"
-# Parallel download - much faster for m3u8
-```
-
-## Create an Alias for Convenience
-
-**Add to ~/.bashrc:**
-```bash
-alias yt-dlp-fast='yt-dlp --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -j 8 --retry-wait=2"'
-```
-
-**Usage:**
-```bash
-yt-dlp-fast "https://example.com/video.m3u8"
-```
-
-## Key Benefits of aria2c for m3u8
-
-- **Parallel downloads**: Multiple fragments simultaneously
-- **Resume capability**: Continue interrupted downloads
-- **Better error handling**: Automatic retries
-- **Speed optimization**: Much faster than sequential download
-- **Connection management**: Handles network issues better
-
-## Quick Reference Commands
-
-### Basic m3u8 Download
-```bash
-yt-dlp --external-downloader aria2c "URL"
-```
-
-### Optimized Download
-```bash
-yt-dlp --external-downloader aria2c --external-downloader-args "-x 16 -s 16 -j 8" "URL"
-```
-
-### Conservative Download
-```bash
-yt-dlp --external-downloader aria2c --external-downloader-args "-x 4 -s 4 -j 2 --retry-wait=3" "URL"
-```
-
-### With Quality Selection
-```bash
-yt-dlp --external-downloader aria2c --external-downloader-args "-x 8 -s 8" -f "best[height<=720]" "URL"
-```
-
-The key is finding the right balance of connections (`-x`), splits (`-s`), and concurrent jobs (`-j`) for your network and the server's capacity.
-
-# How to Detect m3u8 Files on Websites
-## Method 1: Browser Developer Tools
-
-### Chrome/Firefox Developer Tools
-
-**Step 1: Open Developer Tools**
-```
-F12 or Right-click → Inspect Element
-```
-
-**Step 2: Go to Network Tab**
-- Click on "Network" tab
-- Clear existing logs (🚫 icon)
-
-**Step 3: Filter for Media Files**
-- In the filter box, type: `m3u8` or `Media`
-- Or click on "Media" filter button
-
-**Step 4: Reload/Play Video**
-- Refresh the page or start playing the video
-- Watch for `.m3u8` files in the network requests
-
-**Step 5: Copy m3u8 URL**
-- Right-click on the m3u8 file → Copy → Copy link address
-
-### Advanced Filtering
-
-```
-# Filter patterns in Network tab:
-*.m3u8
-master.m3u8
-playlist.m3u8
-index.m3u8
-```
-
-## Method 2: Browser Extensions
-
-### Video DownloadHelper (Recommended)
-
-```
-1. Install Video DownloadHelper extension
-2. Visit the video page
-3. Click the extension icon
-4. Look for HLS/m3u8 streams in the list
-```
-
-### Stream Detector
-
-```
-1. Install Stream Detector extension
-2. Navigate to video page
-3. Extension automatically detects m3u8 streams
-4. Click to copy URLs
-```
-
-## Method 3: Command Line Tools
-
-### Using yt-dlp to Extract m3u8
-
-```bash
-# Get video info (often reveals m3u8 URLs)
-yt-dlp -j "https://website.com/video-page"
-
-# List all available formats
-yt-dlp -F "https://website.com/video-page"
-
-# Verbose output to see m3u8 detection
-yt-dlp -v "https://website.com/video-page"
-```
-
-### Using curl and grep
-
-```bash
-# Download page source and search for m3u8
-curl -s "https://website.com/video-page" | grep -i "m3u8"
-
-# More comprehensive search
-curl -s "https://website.com/video-page" | grep -E "\.(m3u8|mpd)" -o
-```
-
-## Method 4: JavaScript Console Detection
-
-### Manual JavaScript in Browser Console
-
-```javascript
-// Search for m3u8 in page source
-document.documentElement.innerHTML.match(/https?:\/\/[^\s"']+\.m3u8[^\s"']*/g)
-
-// Monitor network requests for m3u8
-var originalOpen = XMLHttpRequest.prototype.open;
-XMLHttpRequest.prototype.open = function(method, url) {
-    if (url.includes('.m3u8')) {
-        console.log('M3U8 detected:', url);
-    }
-    return originalOpen.apply(this, arguments);
-};
-```
-
-### Advanced JavaScript Monitor
-
-```javascript
-// Comprehensive HLS detection script
-(function() {
-    // Monitor fetch requests
-    const originalFetch = window.fetch;
-    window.fetch = function(...args) {
-        if (args[0].includes('.m3u8')) {
-            console.log('M3U8 URL found via fetch:', args[0]);
-        }
-        return originalFetch.apply(this, args);
-    };
-    
-    // Monitor video elements
-    document.addEventListener('play', function(e) {
-        if (e.target.tagName === 'VIDEO') {
-            console.log('Video source:', e.target.src);
-            console.log('Video sources:', Array.from(e.target.querySelectorAll('source')).map(s => s.src));
-        }
-    }, true);
-})();
-```
-
-## Method 5: Using Specialized Tools
-
-### FFprobe for Analysis
-
-```bash
-# If you suspect a URL contains m3u8
-ffprobe -v quiet -print_format json -show_streams "https://example.com/video.m3u8"
-```
-
-### Using wget/curl to Test
-
-```bash
-# Test if URL is m3u8
-curl -I "https://suspected-url.com/video.m3u8"
-
-# Download and examine content
-curl "https://example.com/video.m3u8" | head -20
-```
-
-## Method 6: Mobile Browser Detection
-
-### Mobile Chrome
-
-```
-1. Open Chrome on mobile
-2. Go to chrome://inspect/#devices
-3. Enable USB debugging on phone
-4. Inspect mobile page from desktop
-5. Use Network tab as described above
-```
-
-## Common m3u8 URL Patterns
-
-### Typical m3u8 URLs
-
-```
-https://example.com/hls/video.m3u8
-https://cdn.example.com/live/stream/playlist.m3u8
-https://streaming.site.com/videos/abc123/master.m3u8
-https://media.example.com/v1/manifest.m3u8
-```
-
-### Search Patterns
-
-```bash
-# Grep patterns for finding m3u8
-grep -i "\.m3u8"
-grep -i "playlist\.m3u8"
-grep -i "master\.m3u8"
-grep -i "index\.m3u8"
-```
-
-# Additional Resources
-- [yt-dlp GitHub Repository](https://github.com/yt-dlp/yt-dlp)
-- [aria2 Documentation](https://aria2.github.io/)
-- [FFmpeg Documentation](https://ffmpeg.org/documentation.html)
+This documentation provides a complete guide for using yt-dlp as your daily download manager on Ubuntu, covering installation, configuration, usage, and troubleshooting.
