@@ -1,27 +1,11 @@
-## Table of Contents
-- [Overview](#overview)
-- [Command Line](#command-line)
-  - [1. Basic Navigation and File Operations](#1-basic-navigation-and-file-operations)
-  - [2. File Permissions and Ownership](#2-file-permissions-and-ownership)
-  - [3. Text Manipulation](#3-text-manipulation)
-  - [4. Input/Output Redirection](#4-inputoutput-redirection)
-  - [5. Package Management](#5-package-management)
-  - [6. System Monitoring](#6-system-monitoring)
-
 # Overview
-**Basic navigation and file operation:** `ls`, `cd`, `pwd`, `mkdir`, `rmdir`, `cp`, `mv`, `rm`, and `touch`
-
-**File permission and ownership:** `chmod`, `chown`, and `chgrp`
-
-**Text manipulation:** `cat`, `less`, `head`, `tail`, `grep`, `sed`, `awk`, `sort`, `uniq`, and `wc`
-
-**Input/output redirection:** pipes (`|`), redirections (`>`, `>>`, `<`)
-
-**Package management:** `apt update`, `apt upgrade`, `apt install`, `apt remove`, and `apt search`
-
-**System monitoring:** `ps`, `top`, `htop`, `df`, `du`, `free`, `uname`, and `lsof`
-
-**Study the manual:** `man`, `--help`
+- Basic navigation and file operation: `ls`, `cd`, `pwd`, `mkdir`, `rmdir`, `cp`, `mv`, `rm`, and `touch`
+- File permission and ownership: `chmod`, `chown`, and `chgrp`
+- Text manipulation: `cat`, `less`, `head`, `tail`, `grep`, `sed`, `awk`, `sort`, `uniq`, and `wc`
+- Input/output redirection: pipes (`|`), redirections (`>`, `>>`, `<`)
+- Package management: `apt update`, `apt upgrade`, `apt install`, `apt remove`, and `apt search`
+- System monitoring: `ps`, `top`, `htop`, `df`, `du`, `free`, `uname`, and `lsof`
+- Study the manual: `man`, `--help`
 
 # Command Line
 
