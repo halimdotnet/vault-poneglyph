@@ -1,3 +1,7 @@
+# Personal Documentation Style Templates
+
+---
+
 ## 🅰️ Option A: PARA Method (Productivity-Focused)
 
 *Best for: Action-oriented learners, project managers, busy professionals*
