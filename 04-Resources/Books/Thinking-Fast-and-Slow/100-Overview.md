@@ -8,6 +8,8 @@
 - **Publisher**: Farrar, Straus and Giroux
 - **Genre**: Psychology, Behavioral Economics, Cognitive Science
 
+---
+
 **Author Background**: Daniel Kahneman is a Nobel Prize winner in Economics (2002) and one of the founding fathers of behavioral economics. He is a pioneering researcher in cognitive psychology who, along with Amos Tversky, revolutionized our understanding of human judgment and decision-making. His work on prospect theory and cognitive biases has fundamentally challenged traditional economic assumptions about rational choice.
 
 **Book's Reputation**: International bestseller and modern classic in psychology and economics. Widely considered one of the most influential books of the 21st century in its field. The book has been translated into multiple languages, consistently ranks among top business and psychology books, and is required reading in many business schools and psychology programs worldwide.
