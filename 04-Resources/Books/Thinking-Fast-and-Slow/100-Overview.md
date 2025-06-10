@@ -1,7 +1,5 @@
 # Book Assessment and Reading Guide
 
----
-
 - **Title**: Thinking, Fast and Slow
 - **Author**: Daniel Kahneman
 - **Publication Date**: 2011 (First Edition)
